@@ -1,29 +1,35 @@
-<?php 
+<?php
 
-function gerarSenha($tamanho = 12) {
-    $maiusculas = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $minusculas = 'abcdefghijklmnopqrstuvwxyz';
-    $numeros = '0123456789';
-    $especiais = '!@#$%^&*()-_=+[]{}<>~';
+function gerarSenha($tamanho, $maiusculas, $minusculas, $numeros, $simbolos){
 
-    $senha = '';
-    $senha .= $maiusculas[random_int(0, strlen($maiusculas) - 1)];
-    $senha .= $minusculas[random_int(0, strlen($minusculas) - 1)];
-    $senha .= $numeros[random_int(0, strlen($numeros) - 1)];
-    $senha .= $especiais[random_int(0, strlen($especiais) - 1)];
+  $maiusculas = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  $minusculas = "abcdefghijklmnopqrstuvwxyz";
+  $numeros = "0123456789";
+  $simbolos = "!@#$%&*()_+=";
 
-    $todosCaracteres = $maiusculas . $minusculas . $numeros . $especiais;
-    $max = strlen($todosCaracteres) - 1;
+$senha = "";
 
-    for ($i = strlen($senha); $i < $tamanho; $i++) {
-        $senha .= $todosCaracteres[random_int(0, $max)];
-    }
+  if($maiusculas){
+    $senha .= str_shuffle($maiusculas);
+  }
 
-    return str_shuffle($senha);
+  if($minusculas){
+    $senha .= str_shuffle($minusculas);
+  }
+
+  if($numeros){
+    $senha .= str_shuffle($numeros);
+  }
+
+  if($simbolos){
+    $senha .= str_shuffle($simbolos);
+  }
+
+
+  return substr(str_shuffle($senha), 0, $tamanho);
+
 }
 
-echo $gerarSenha
 
 
-
-?>
+echo "Senha gerada: ". gerarSenha(8, true, true, true, true) . "<br>";
